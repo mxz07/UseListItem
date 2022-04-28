@@ -13,6 +13,7 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.SimpleAdapter;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -21,6 +22,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -30,6 +32,7 @@ public class MainActivityList extends ListActivity implements Runnable {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setContentView(R.layout.list_item);
         Thread t = new Thread(this);
         t.start();
 
@@ -45,14 +48,26 @@ public class MainActivityList extends ListActivity implements Runnable {
             }
         };
         SharedPreferences sharedPreferences = getSharedPreferences("myRate", Activity.MODE_PRIVATE);
+        //构建hashmap
+        ArrayList<HashMap<String,String>>listItems = new ArrayList<HashMap<String, String>>();
+        for(int i=0;i<27;i++){
+            HashMap<String,String> map = new HashMap<String,String>();
+            map.put("huobi",sharedPreferences.getString("List"+i,"0").split("---->")[0]);
+            map.put("huilv",sharedPreferences.getString("List"+i,"0").split("---->")[1]);
+            listItems.add(map);
+        }
+        /*
         List<String> list1 = new ArrayList<String>();
         for(int i=0;i<27;i++) {
             list1.add(sharedPreferences.getString("List"+i,"0"));
         }
-        ListAdapter adapter = new ArrayAdapter<String>(
+        */
+        SimpleAdapter adapter = new SimpleAdapter(
                 this,
-                android.R.layout.simple_list_item_1,
-                list1
+                listItems,
+                R.layout.list_item,
+                new String[]{"huobi","huilv"},
+                new int[]{R.id.textView,R.id.textView2}
         );
         setListAdapter(adapter);
     }
