@@ -31,8 +31,8 @@ public class MyAdapter extends ArrayAdapter {
         TextView title = (TextView) itemView.findViewById(R.id.textView);
         TextView detail = (TextView) itemView.findViewById(R.id.textView2);
 
-        title.setText("Title:"+map.get("huobi"));
-        detail.setText("detail:"+map.get("huilv"));
+        title.setText(map.get("huobi"));
+        detail.setText(map.get("huilv"));
 
         return itemView;
     }
