@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -62,6 +63,7 @@ public class MainActivityList extends ListActivity implements Runnable {
             list1.add(sharedPreferences.getString("List"+i,"0"));
         }
         */
+        /*
         SimpleAdapter adapter = new SimpleAdapter(
                 this,
                 listItems,
@@ -70,6 +72,11 @@ public class MainActivityList extends ListActivity implements Runnable {
                 new int[]{R.id.textView,R.id.textView2}
         );
         setListAdapter(adapter);
+         */
+        MyAdapter myAdapter = new MyAdapter(this,
+                R.layout.list_item,
+                listItems);
+        this.setListAdapter(myAdapter);
     }
 
     @Override
